@@ -1,19 +1,19 @@
 const g = require("./geometry");
 const r = require("raylib");
-
+const w = require("./windowsProperty.js");
 const TITLE = "Test";   //window Property
-const WIN_WIDTH = 200;
-const WIN_HEIGHT = 200;
-const WIN_FPS = 50;
-const WIN_POSITION_X = 1000;
-const WIN_POSITION_Y = 10;
-
+// const WIN_WIDTH = 500;
+// const WIN_HEIGHT = 800;
+// const WIN_FPS = 50;
+// const WIN_POSITION_X = 1000;
+// const WIN_POSITION_Y = 10;
+const WIN = w.window;
 
 function setup() {
     r.SetTraceLogLevel(r.LOG_NONE);
-    r.InitWindow(WIN_WIDTH, WIN_HEIGHT, TITLE);
-    r.SetTargetFPS(WIN_FPS);
-    r.SetWindowPosition(WIN_POSITION_X, WIN_POSITION_Y);
+    r.InitWindow(WIN.w, WIN.h, WIN.t);
+    r.SetTargetFPS(WIN.f);
+    r.SetWindowPosition(WIN.p.x, WIN.p.y);
 }
 
 function running() {
@@ -35,9 +35,9 @@ function draw() {
 
 
 module.exports = {
-  setup,
-  draw,
-  running,
-  teardown,
-  update,
+    setup,
+    draw,
+    running,
+    teardown,
+    update,
 }
