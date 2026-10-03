@@ -1,19 +1,26 @@
-const g = require("./geometry");
 const r = require("raylib");
 const w = require("./windowsProperty.js");
-const TITLE = "Test";   //window Property
-// const WIN_WIDTH = 500;
-// const WIN_HEIGHT = 800;
-// const WIN_FPS = 50;
-// const WIN_POSITION_X = 1000;
-// const WIN_POSITION_Y = 10;
-const WIN = w.window;
+const e = require("./enemy.js");
+const p = require("./player.js")
+const rd = require("./roads.js")
+const sb = require("./scoreBoard.js")
+// const g = require("./geometry.js");
 
 function setup() {
-    r.SetTraceLogLevel(r.LOG_NONE);
-    r.InitWindow(WIN.w, WIN.h, WIN.t);
-    r.SetTargetFPS(WIN.f);
-    r.SetWindowPosition(WIN.p.x, WIN.p.y);
+    w.windowSetup();
+
+    rd.createRoadMarkings();
+    const l = rd.createLane();
+    const pl = p.createPlayer();
+    const n = e.createEnemies(l);
+
+    return {
+        player: pl,
+        lane: l,
+        noOfCars: n,
+        gameOver: false
+    };
+
 }
 
 function running() {
@@ -24,11 +31,34 @@ function teardown() {
     r.CloseWindow();
 }
 
-function update() { }
 
-function draw() {
+function update(d) {
+    if (d.gameOver) {
+        return;
+    }
+    rd.updateRoad();  //update background
+
+    p.checkInput(d.player);
+
+    const enemies = e.updateEnemies(d);   //enemies
+
+    d.gameOver = p.isPlayerColliding(d, enemies)
+
+}
+
+
+function draw(d) {
     r.BeginDrawing();
     r.ClearBackground(r.WHITE);
+
+    rd.drawRoad();//draw Background
+
+    p.drawPlayer(d.player);//draw player
+
+    e.drawEnemies(d.noOfCars);//draw enemies
+
+    sb.drawScoreBoard(d.gameOver);//draw Score Board
+
     r.EndDrawing();
 
 }
