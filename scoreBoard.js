@@ -26,6 +26,9 @@ const scoreText = {
     size: 20,
     color: r.WHITE,
 }
+function name(params) {
+    const scoreText = { x: board.bg.x + 20, y: board.bg.y + 35, size: 20, color: r.WHITE }
+}
 function updateScore() {
     ++board.score;
 }
