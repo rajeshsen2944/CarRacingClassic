@@ -31,7 +31,31 @@ function updateScore() {
 }
 function drawGameOver(flag) {
     if (flag) {
-        r.DrawText("GAME OVER", 104, 200, 65, r.BLACK);
+        r.DrawRectangle(
+            0,
+            0,
+            w.window.w,
+            w.window.h,
+            r.ColorAlpha(
+                r.BLACK,
+                0.6
+            )
+        );
+
+        r.DrawText("GAME OVER",
+            104,
+            w.window.h / 2 - 100,
+            65,
+            r.WHITE
+        );
+
+        r.DrawText(
+            `score  ${board.score}`,
+            2 * w.window.w / 5,
+            w.window.h / 2,
+            30,
+            r.RED
+        );
     }
 }
 function drawScoreBoard(gameover) {

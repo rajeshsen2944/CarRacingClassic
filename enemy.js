@@ -3,6 +3,7 @@ const WIN = require("./windowsProperty.js");
 const rd = require("./roads.js");
 const clrs = require("./colors.js");
 const sb = require("./scoreBoard.js");
+const p = require("./player.js");
 
 const enemies = {};
 
@@ -63,10 +64,29 @@ function drawEnemies(noOfCars = 5) {
     let i = 1;
 
     while (i <= noOfCars) {
-        r.DrawRectangleRec(
-            enemies[`car${i}`],
+        const x1 = enemies[`car${i}`].x - 3;
+        const x2 = enemies[`car${i}`].x + enemies[`car${i}`].width;
+        const y1 = enemies[`car${i}`].y + enemies[`car${i}`].height / 6;
+        const y2 = enemies[`car${i}`].y + 4 * enemies[`car${i}`].height / 6
+
+        p.drawTyers({ x: x1, y: y1 })
+        p.drawTyers({ x: x2, y: y1 })
+        p.drawTyers({ x: x1, y: y2 })
+        p.drawTyers({ x: x2, y: y2 })
+        
+        r.DrawRectangleRounded(
+            enemies[`car${i}`], 0.2, 6,
             enemies[`car${i}`].color
         );
+
+        
+        p.drawCarRoof({
+            x: enemies[`car${i}`].x + enemies[`car${i}`].width / 7,
+            y: enemies[`car${i}`].y + enemies[`car${i}`].width / 7,
+        },
+            enemies[`car${i}`],
+            r.YELLOW
+        )
 
         i++;
     }

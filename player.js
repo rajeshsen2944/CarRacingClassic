@@ -6,9 +6,11 @@ function createPlayer() {
     return {
         x: w.window.w / 2,
         y: w.window.h - 150,
-        
+
         width: 50,
         height: 70,
+
+        roundness: .5,
     }
 }
 
@@ -29,7 +31,46 @@ function movePlayer(p, d, SPEED = 4) {
 }
 
 function drawPlayer(p) {
-    r.DrawRectangleRec(p, r.BLUE)
+    const x1 = p.x - 3;
+    const x2 = p.x + p.width;
+    const y1 = p.y + p.height / 6;
+    const y2 = p.y + 4 * p.height / 6
+
+
+    r.DrawRectangleRounded(p, 0.2, 6, r.GREEN);
+
+    drawTyers({ x: x1, y: y1 })
+    drawTyers({ x: x2, y: y1 })
+    drawTyers({ x: x1, y: y2 })
+    drawTyers({ x: x2, y: y2 })
+
+
+    drawCarRoof(
+        {
+            x: p.x + p.width / 7,
+            y: p.y + p.height / 3
+        },
+        p,
+        r.BLUE
+    )
+
+}
+function drawCarRoof(pos, car,color) {
+    pos.height = car.height / 2;
+
+    pos.width = 5 * car.width / 7;
+
+    r.DrawRectangleRounded(
+        pos,
+        0.2, 6,
+        color
+    );
+}
+function drawTyers(pos) {
+    pos.height = 15;
+    pos.width = 3;
+
+    r.DrawRectangleRounded(pos, .5, 8, r.BLACK);
 }
 
 function isPlayerColliding(d, cars) {
@@ -47,7 +88,9 @@ module.exports = {
     drawPlayer,
     checkInput,
     createPlayer,
-    isPlayerColliding
+    isPlayerColliding,
+    drawTyers,
+    drawCarRoof,
 }
 
 
