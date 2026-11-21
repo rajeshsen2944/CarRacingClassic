@@ -49,7 +49,7 @@ function update(d) {
 
 function draw(d) {
     r.BeginDrawing();
-    r.ClearBackground(r.WHITE);
+    r.ClearBackground(r.BLACK);
 
     rd.drawRoad();//draw Background
 
