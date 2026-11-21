@@ -4,7 +4,6 @@ const e = require("./enemy.js");
 const p = require("./player.js")
 const rd = require("./roads.js")
 const sb = require("./scoreBoard.js")
-// const g = require("./geometry.js");
 
 function setup() {
     w.windowSetup();

@@ -4,7 +4,7 @@ const randomBetween = function (i) {
 }
 
 const checkSideCollide = function (aPos, bPos, bSize) {
-  return aPos < bPos + bSize;
+  return aPos < (bPos + bSize);
 }
 
 const isColliding = function (a, b) {
