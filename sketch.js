@@ -1,72 +1,76 @@
 const r = require("raylib");
-const w = require("./windowsProperty.js");
+const { windowSetup } = require("./config");
+// const {windowSetup} = require("./windowsProperty.js");
 const e = require("./enemy.js");
 const p = require("./player.js")
 const rd = require("./roads.js")
 const sb = require("./scoreBoard.js")
 
 function setup() {
-    w.windowSetup();
+  const window = windowSetup();
+  const roadMarkings = rd.createRoadMarkings();
 
-    rd.createRoadMarkings();
-    const l = rd.createLane();
-    const pl = p.createPlayer();
-    const n = e.createEnemies(l);
 
-    return {
-        player: pl,
-        lane: l,
-        noOfCars: n,
-        gameOver: false
-    };
+  // const l = rd.createLane();
+  // const pl = p.createPlayer();
+  // const n = e.createEnemies(l);
+
+  return {
+    roadMarkings,
+    window,
+    // player: pl,
+    // lane: l,
+    // noOfCars: n,
+    // gameOver: false
+  };
 
 }
 
 function running() {
-    return !r.WindowShouldClose();
+  return !r.WindowShouldClose();
 }
 
 function teardown() {
-    r.CloseWindow();
+  r.CloseWindow();
 }
 
 
 function update(d) {
-    if (d.gameOver) {
-        return;
-    }
-    rd.updateRoad();  //update background
+  // if (d.gameOver) {
+  //   return;
+  // }
+  rd.updateRoad(d.roadMarkings);  //update background
 
-    p.checkInput(d.player);
+  // p.checkInput(d.player);
 
-    const enemies = e.updateEnemies(d);   //enemies
+  // const enemies = e.updateEnemies(d);   //enemies
 
-    d.gameOver = p.isPlayerColliding(d, enemies)
+  // d.gameOver = p.isPlayerColliding(d, enemies)
 
 }
 
 
 function draw(d) {
-    r.BeginDrawing();
-    r.ClearBackground(r.BLACK);
+  r.BeginDrawing();
+  r.ClearBackground(r.BLACK);
 
-    rd.drawRoad();//draw Background
+  rd.drawRoad(d.roadMarkings);//draw Background
 
-    p.drawPlayer(d.player);//draw player
+  // p.drawPlayer(d.player);//draw player
 
-    e.drawEnemies(d.noOfCars);//draw enemies
+  // e.drawEnemies(d.noOfCars);//draw enemies
 
-    sb.drawScoreBoard(d.gameOver);//draw Score Board
+  // sb.drawScoreBoard(d.gameOver);//draw Score Board
 
-    r.EndDrawing();
+  r.EndDrawing();
 
 }
 
 
 module.exports = {
-    setup,
-    draw,
-    running,
-    teardown,
-    update,
+  setup,
+  draw,
+  running,
+  teardown,
+  update,
 }

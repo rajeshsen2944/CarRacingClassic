@@ -1,20 +1,23 @@
 const r = require("raylib");
-function windowSetup() {
-  const window = {
-    t: "Car Classic ",
-    w: 600,
-    h: 750,
-    f: 50,
-    p: {
-      x: 1100,
-      y: 10,
-    },
+const createWindow = function (width, height, fps, position) {
+  return {
+    title: "Car Classic",
+    width,
+    height,
+    fps,
+    position,
   }
+}
+
+const windowSetup = function () {
+  const w = createWindow(600, 750, 50, [1100, 10]);
+
   r.SetTraceLogLevel(r.LOG_NONE);
-  r.InitWindow(window.w, window.h, window.t);
-  r.SetTargetFPS(window.f);
-  r.SetWindowPosition(...window.p.x, window.p.y);
-  return window;
+  r.InitWindow(w.width, w.height, w.title);
+  r.SetTargetFPS(w.fps);
+  r.SetWindowPosition(...w.position);
+
+  return w;
 }
 module.exports = {
   windowSetup,
